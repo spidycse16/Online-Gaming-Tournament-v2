@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.tournament-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next line */
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tournament-details {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px; /* Space between blocks */
+    padding: 15px;
+    height: 550px;
+    width: 500px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Ensures padding and border are included in the total width */
+    border-radius: 30px;
+}
+
+.tournament-title {
+    font-size: 1.4em;
+    margin: 10px 0;
+    color: #002277;
+}
+
+.tournament-info {
+    margin: 5px 0;
+    color: #555;
+}
+
+.join-button {
+    background-color: #002277;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+
+
+}
+.button{
+    margin-top: 15px;
+}
+
+.join-button:hover {
+    background-color: #2dcd75; /* Darker shade on hover */
+}
+
+.paginate {
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+.paginate a:hover {
+    background-color: #f0f0f0; /* Background on hover */
+}
+
+.paginate .active {
+    background-color: #007bff;
+    color: white;
+}
+
+.paginate .disabled {
+    color: #ccc;
+    pointer-events: none;
+}
