@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>All Tournaments</title>
     <link rel="stylesheet" href="{{ asset('css/tournament.css') }}">
+    <div style="margin-left:180px;">
+        @include('users.navbar')
+    </div>
 </head>
 <body>
     @if (session('alreadyJoined'))

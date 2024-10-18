@@ -76,6 +76,9 @@
             }
         }
     </style>
+    <div style="margin-left:180px;">
+        @include('users.navbar')
+    </div>
 </head>
 <body>
 

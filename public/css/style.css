@@ -14,55 +14,60 @@ body {
 /* Header and Logo */
 header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: #fff;
-    
-  
 }
 
 .logo-container {
     flex: 1;
     text-align: center;
+   
 }
 
 .logo {
-    width:1400px;
+    width: 1400px;
     height: 500px;
-    margin: auto 10px;
+  
+    margin-bottom: 15px;
 }
 
-
-.nav{
-    text-decoration: none;
+.nav {
+    font-family:'Times New Roman', Times, serif;
+    justify-content: center;
     display: flex;
     flex-direction: row;
     gap: 25px;
     font-size: 16px;
     font-weight: 500; /* Semi-bold for readability */
-    color:bisque;
     padding: 12px 20px;
     border-radius: 5px;
-    background-color: #7a6752; /* Base color for links */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    background-color: grey; /* Base color for links */
+    width: 1150px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.navbar li {
+.nav li {
+    color: black;
     margin: 0 15px;
 }
 
-.navbar a {
-    color:darkmagenta;
-    text-decoration: none;
+.nav a {
+    color: black; /* Set the link color to red */
+    text-decoration:dashed;
     font-size: 16px;
     padding: 10px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
-.navbar a:hover {
-    background-color: #575757;
+.nav a:hover {
+    color:lightseagreen;/* Keep the hover color the same */
+    text-decoration: none;
+    background-color: #575757; /* Optional: change background on hover */
 }
 
 /* Responsive Design */

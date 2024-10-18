@@ -63,8 +63,12 @@
             }
         }
     </style>
+    <div style="margin-left:180px;">
+        @include('users.navbar')
+    </div>
 </head>
 <body>
+
     <h1>Tournament Bracket</h1>
     <div class="bracket-container">
         @for ($i = 0; $i < $numberOfPlayers; $i += 2)

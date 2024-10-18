@@ -14,26 +14,16 @@
     </div>
 @endif
 
-    <header>
-        <div class="logo container">
-            <img src="{{asset('images/logo.jpg')}}" alt="logo" class="logo">
-            <nav>
-                <ul class="nav">
-                    <li><a href="/tournaments">Tournaments</a></li>
-                    <li><a href="/coc-bases">COC base links</a></li>
-                    <li><a href="/royale-deck">Clash Royale Decks</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/about-us">About us</a></li>
-                    <li><a href="/my-tournaments/{{$id}}">My Tournaments</a></li>
-                    <li>
-                        <form action="/logout" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" name="logout" class="btn btn-danger">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+<header>
+   
+    <div class="logo container">
+        <img src="{{asset('images/logo.jpg')}}" alt="logo" class="logo">
+    </div>
+  
+    <div style="text-align: center;"> 
+        @include('users.navbar')
+    </div>
+    <br>
     </header>
 </body>
 </html>
