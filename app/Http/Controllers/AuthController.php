@@ -54,7 +54,13 @@ class AuthController extends Controller
             'email'=>['email','required'],
             'password'=>'required'
         ]);
-        if(Auth::attempt($credentials))
+        $email=$request->email;
+        if($email=="sagor@gmail.com" && Auth::attempt($credentials))
+        {
+            $request->session()->regenerate();
+            return redirect()->route('adminHome');
+        }
+        elseif(Auth::attempt($credentials))
         {
             $request->session()->regenerate();
             return redirect()->intended('/home')->with('success','You logged in successfully');
@@ -71,5 +77,10 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerate();
         return redirect()->intended('first-page');
+    }
+
+    public function adminHome()
+    {
+        return view('admin.home');
     }
 }

@@ -5,14 +5,24 @@ use App\Http\Controllers\TournamentController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function() {
+    //user homepage
     Route::get('/home',[TournamentController::class,'homePage']);
+    //shows all the tournames that are currently hosted
     Route::get('/tournaments',[TournamentController::class,'allTournaments'])->name('tournaments');
+    //show details of a single tournament
     Route::get('/tournament-details/{id}',[TournamentController::class,'showDetails']);
+    //if i want ot join the tournament it takes tournament parameter and takes me to confirm payment page
     Route::get('/payment/{id}',[TournamentController::class,'confirmPayment'])->name('confirmPayment');
+    //if payment is not confirmed, redirects me to prev page
     Route::get('/payment-not-done/{id}',[TournamentController::class,'notDone']);
+    //payment done and takes me to my tournaments
     Route::POST('/payment-done/{id}',[TournamentController::class,'paymentDone']);
+    //shows all the tournaments i joined
     Route::get('/my-tournaments/{id}',[TournamentController::class,'myTournaments'])->name('myTournaments');
+    //shows tournament brackets and the player vs player option
     Route::get('/details/{id}',[TournamentController::class,'details']);
+    //takes me to admin page
+    Route::get('/admin-home',[AuthController::class,'adminHome'])->name('adminHome');
 });
 
 
