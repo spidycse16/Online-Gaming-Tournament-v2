@@ -14,35 +14,33 @@ body {
 /* Header and Logo */
 header {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; 
     padding: 20px;
     background-color: #fff;
 }
 
 .logo-container {
     flex: 1;
-    text-align: center;
+    margin-left:10px;
    
 }
 
 .logo {
-    width: 1400px;
+    width: 1500px;
     height: 500px;
   
     margin-bottom: 15px;
 }
 
 .nav {
-    font-family:'Times New Roman', Times, serif;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     justify-content: center;
     display: flex;
     flex-direction: row;
-    gap: 25px;
+    gap: 10px;
     font-size: 16px;
     font-weight: 500; /* Semi-bold for readability */
-    padding: 12px 20px;
+    padding: 10px 15px;
     border-radius: 5px;
     background-color: grey; /* Base color for links */
     width: 1150px;
@@ -51,12 +49,12 @@ header {
 }
 
 .nav li {
-    color: black;
+    color:mediumpurple;
     margin: 0 15px;
 }
 
 .nav a {
-    color: black; /* Set the link color to red */
+    color:lightskyblue;/* Set the link color to red */
     text-decoration:dashed;
     font-size: 16px;
     padding: 10px 15px;
@@ -72,11 +70,11 @@ header {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .navbar {
+    .nav {
         flex-direction: column;
     }
 
-    .navbar li {
+    .nav li {
         margin: 10px 0;
     }
 }
