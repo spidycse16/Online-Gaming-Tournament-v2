@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TournamentController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-
+//Users
 Route::middleware(['auth'])->group(function() {
     //user homepage
     Route::get('/home',[TournamentController::class,'homePage']);
@@ -22,9 +23,17 @@ Route::middleware(['auth'])->group(function() {
     //shows tournament brackets and the player vs player option
     Route::get('/details/{id}',[TournamentController::class,'details']);
     //takes me to admin page
-    Route::get('/admin-home',[AuthController::class,'adminHome'])->name('adminHome');
 });
+//admins
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('/admin-home',[AuthController::class,'adminHome'])->name('adminHome');
+    //show the add tournament page
+    Route::get('/admin/add-tournament',[AdminController::class,'add']);
+    //store the items from the form
+    Route::POST('/admin/add-tournament-form',[AdminController::class,'storeValues']);
+
+});
 
 //login and registration
 Route::get('/first-page',[AuthController::class,'index']);

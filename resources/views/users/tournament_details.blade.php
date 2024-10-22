@@ -43,7 +43,8 @@
 
         .details {
             margin-bottom: 20px;
-            text-align: left;
+            text-align: center;
+
         }
 
         .details p {

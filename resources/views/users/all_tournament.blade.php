@@ -34,7 +34,7 @@
             <p class="tournament-info"><strong>Players Joined:</strong> {{ $tournament->players_joined }}/{{ $tournament->player_number }}</p>
             <p class="tournament-info"><strong>Date & Time:</strong> {{ $tournament->date_time }}</p>
             <div class="button">
-                <a href="/tournament-details/{{$tournament->id}}" class="join-button"> See Details</a>
+                <a href="/tournament-details/{{$tournament->id}}" class="join-button" > See Details</a>
             </div>
         </div>
         @endforeach

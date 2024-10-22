@@ -1,0 +1,142 @@
+/* General Styles */
+body {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    padding: 12px 20px;
+    display: inline-block;
+    border-radius: 5px;
+    margin: 10px;
+    font-size: 16px;
+}
+
+/* Add consistent button styles */
+.add {
+    background-color: #28a745;
+}
+
+.add-coc
+{
+    background-color: cadetblue;
+}
+.add-cr
+{
+    background-color: darkorchid;
+}
+
+.edit {
+    background-color: #ffc107;
+}
+
+.delete {
+    background-color: #dc3545;
+}
+
+.handle {
+    background-color: #17a2b8;
+}
+
+/* Button hover effects */
+a:hover {
+    opacity: 0.8;
+}
+
+/* Center the links vertically and horizontally */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+a.add, a.edit, a.delete, a.handle {
+    margin: 10px;
+    padding: 15px 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+a.add:hover, a.edit:hover, a.delete:hover, a.handle:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+/* General form container styles */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for labels */
+.form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Style for form fields */
+.form-container .field, .form-container .dropdown, .form-container .datetime, .form-container .description {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Special styling for textarea */
+.form-container textarea.description {
+    height: 100px;
+    resize: none;
+}
+
+/* File input styling */
+.form-container input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Button styles */
+.add-button {
+    width: 100%;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #218838;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .add-button {
+        font-size: 14px;
+    }
+}
+
