@@ -32,6 +32,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/add-tournament',[AdminController::class,'add']);
     //store the items from the form
     Route::POST('/admin/add-tournament-form',[AdminController::class,'storeValues']);
+    //takes me to the search page
+    Route::get('/admin/manage-tournament-search',[AdminController::class,'search']);
+    //takes me to the manage tournament page where=> [tournament name - manage-edit-delete]
+    Route::get('/admin/manage',[AuthController::class,'manage']);
+    //takes to the versus control
+    Route::get('/admin/manage-versus/{id}',[AdminController::class,'manageVersus']);
 
 });
 

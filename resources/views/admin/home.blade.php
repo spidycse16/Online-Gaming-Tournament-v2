@@ -21,11 +21,11 @@
     </div>
     <div class="options">
         <a href="/admin/add-tournament" class="add">Add Tournnament</a>
+        <a href="/admin/manage-tournament-search" class="manage">Manage Tournnament</a>
         <a href="/admin/edit-tournament" class="edit">Edit Tournnament</a>
         <a href="/admin//delete-tournament" class="delete">Delete tournament</a>
         <a href="/admin//add-coc-bases" class="add-coc">Add coc Base</a>
         <a href="/admin//add-cr-deck" class="add-cr">Add cr deck</a>
-        <a href="/admin//handle users" class="handle">Handle Users</a>
         <form action="/logout" method="POST">
             @csrf
             <button type="submit" name="logout" class="logout">Logout</button>

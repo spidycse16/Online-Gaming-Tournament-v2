@@ -8,6 +8,8 @@ body {
 .admin {
     text-align: center; /* Center the admin panel header */
     margin-bottom: 30px; /* Space below the header */
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:olive;
 }
 
 .options {
@@ -29,11 +31,11 @@ body {
 }
 
 .add {
-    background-color: #007BFF; /* Blue */
+    background-color:#28A745;
 }
 
 .edit {
-    background-color: #28A745; /* Green */
+    background-color:darkslateblue;
 }
 
 .delete {
@@ -70,7 +72,9 @@ body {
     transition: background-color 0.3s; /* Smooth background color change */
 }
 
-
+.manage{
+    background-color: dimgray;
+}
 .form-container {
     max-width: 600px; /* Limit the form width */
     margin: 20px auto; /* Center the form */

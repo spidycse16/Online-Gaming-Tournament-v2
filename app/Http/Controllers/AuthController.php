@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
 class AuthController extends Controller
 {
     public function index()
@@ -82,5 +82,13 @@ class AuthController extends Controller
     public function adminHome()
     {
         return view('admin.home');
+    }
+
+    public function manage(Request $request)
+    {
+       $title=$request->title;
+       $results=Tournament::where('tournament_name','Like','%'.$title.'%')->get(['id','tournament_name']);
+       //return $results;
+       return view('admin.manage',compact('results'));
     }
 }

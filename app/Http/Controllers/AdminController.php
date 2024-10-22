@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tournament;
+use App\Models\User;
+use App\Models\User_in_tournament;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -47,5 +49,19 @@ class AdminController extends Controller
             return redirect()->route('adminHome')->with('success','Tournament Added successfully');
         }
         return redirect()->back()->with('error', 'Failed to add Tournament');
+    }
+
+    public function search()
+    {
+        return view('admin.search_tournament');
+    }
+
+    public function manageVersus($tournament_id)
+    {
+        //need to send id and name
+        $players_id=User_in_tournament::where('tournament_id',$tournament_id)-> pluck('user_id');
+        $player_name=User::whereIn('id',$players_id)->pluck('name');
+        $numberOfPlayers=User_in_tournament::where('tournament_id',$tournament_id)->count();
+        return view('admin.versus',compact('player_name' ,'numberOfPlayers','tournament_id'));
     }
 }
