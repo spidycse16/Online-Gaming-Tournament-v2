@@ -61,7 +61,7 @@ class AdminController extends Controller
         //need to send id and name
         $players_id=User_in_tournament::where('tournament_id',$tournament_id)-> pluck('user_id');
         $player_name=User::whereIn('id',$players_id)->pluck('name');
-        $numberOfPlayers=User_in_tournament::where('tournament_id',$tournament_id)->count();
-        return view('admin.versus',compact('player_name' ,'numberOfPlayers','tournament_id'));
+        $numberOfPlayers=count($players_id);
+        return view('admin.versus',compact('player_name' ,'numberOfPlayers','tournament_id','players_id'));
     }
 }

@@ -62,20 +62,36 @@
                 grid-template-columns: 1fr;
             }
         }
+        .looser{
+            background-color: red;
+        }
     </style>
 </head>
 <body>
 
     <h1>Tournament Bracket</h1>
     <div class="bracket-container">
+      
         @for ($i = 0; $i < $numberOfPlayers; $i += 2)
             <div class="match-box">
                 @isset($player_name[$i])
-                    <div class="player-box">{{ $player_name[$i] }}</div>
+                    <div class="player-box">{{ $player_name[$i] }}
+                        <form action="/admin/delete-user/{{$players_id[$i]}}" method="POST">
+                            @csrf
+                            <button type="submit" class="looser">Looser</button>
+                        </form>
+                    </div>
+                   
                 @endisset
                 <div class="vs-text">VS</div>
                 @isset($player_name[$i + 1])
-                    <div class="player-box">{{ $player_name[$i + 1]->name }}</div>
+                    <div class="player-box">{{ $player_name[$i + 1]}}
+                        <form action="/admin/delete-user/{{$players_id[$i]}}" method="POST">
+                            @csrf
+                            <button type="submit" class="looser">Looser</button>
+                        </form>
+                    </div>
+                    
                 @endisset
             </div>
         @endfor
