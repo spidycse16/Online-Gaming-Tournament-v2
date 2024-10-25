@@ -78,17 +78,5 @@ class AuthController extends Controller
         $request->session()->regenerate();
         return redirect()->intended('first-page');
     }
-
-    public function adminHome()
-    {
-        return view('admin.home');
-    }
-
-    public function manage(Request $request)
-    {
-       $title=$request->title;
-       $results=Tournament::where('tournament_name','Like','%'.$title.'%')->get(['id','tournament_name']);
-       //return $results;
-       return view('admin.manage',compact('results'));
-    }
+   
 }

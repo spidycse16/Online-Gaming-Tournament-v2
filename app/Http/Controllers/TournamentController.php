@@ -76,26 +76,44 @@ class TournamentController extends Controller
         
         return view('users.myTournaments',compact('matches'));
     }
-    public function details($id)
+    public function details($tournament_id)
     {
-        $players=User_in_tournament::where('tournament_id',$id)->pluck('user_id');
-        $player_name=[];
-        $player_name = User::whereIn('id', $players)->pluck('name')->toArray();
+        // $players=User_in_tournament::where('tournament_id',$id)->pluck('user_id');
+        // $player_name=[];
+        // $player_name = User::whereIn('id', $players)->pluck('name')->toArray();
 
         
-        $numberOfPlayers=2;
-        $temp=count($player_name);
-        if($temp>16 && $temp<=32)
-        $numberOfPlayers=32;
-        elseif($temp>8 && $temp<=16)
-        $numberOfPlayers=16;
-        elseif($temp>4 && $temp<=8)
-        $numberOfPlayers=8;
-        elseif($temp>2 && $temp<=4)
-        $numberOfPlayers=4;
-        else
-        $numberOfPlayers=2;
+        // $numberOfPlayers=2;
+        // $temp=count($player_name);
+        // if($temp>16 && $temp<=32)
+        // $numberOfPlayers=32;
+        // elseif($temp>8 && $temp<=16)
+        // $numberOfPlayers=16;
+        // elseif($temp>4 && $temp<=8)
+        // $numberOfPlayers=8;
+        // elseif($temp>2 && $temp<=4)
+        // $numberOfPlayers=4;
+        // else
+        // $numberOfPlayers=2;
         //return $player_name;
-        return view('users.singleDetails',compact('player_name','numberOfPlayers'));
+        // return view('users.singleDetails',compact('player_name','numberOfPlayers'));
+
+        $players = User_in_tournament::where('tournament_id', $tournament_id)
+        ->where('eliminated', false)
+        ->with('user:id,name')
+        ->get();
+    
+        $minRound = $players->min('rounds');
+    
+        $players = User_in_tournament::where('tournament_id', $tournament_id)
+        ->where('eliminated', false)
+        ->orderBy('rounds', 'asc')
+        ->with('user:id,name')
+        ->get();
+    
+        $roundPlayers = $players->groupBy('rounds');
+        $numberOfPlayers = $players->count();
+    
+        return view('users.singleDetails', compact('roundPlayers', 'numberOfPlayers', 'tournament_id','minRound'));
     }
 }

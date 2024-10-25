@@ -13,10 +13,10 @@
         }
         h1 {
             text-align: center;
-            color:darkslategrey
+            color:darkslategrey;
             font-size: 2.5em;
             margin-bottom: 20px;
-            font-family::content;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
         }
         .bracket-container {
@@ -70,31 +70,41 @@
 <body>
 
     <h1>Tournament Bracket</h1>
-    <div class="bracket-container">
-      
-        @for ($i = 0; $i < $numberOfPlayers; $i += 2)
-            <div class="match-box">
-                @isset($player_name[$i])
-                    <div class="player-box">{{ $player_name[$i] }}
-                        <form action="/admin/delete-user/{{$players_id[$i]}}" method="POST">
-                            @csrf
-                            <button type="submit" class="looser">Looser</button>
-                        </form>
-                    </div>
-                   
-                @endisset
-                <div class="vs-text">VS</div>
-                @isset($player_name[$i + 1])
-                    <div class="player-box">{{ $player_name[$i + 1]}}
-                        <form action="/admin/delete-user/{{$players_id[$i]}}" method="POST">
-                            @csrf
-                            <button type="submit" class="looser">Looser</button>
-                        </form>
-                    </div>
-                    
-                @endisset
+
+    {{-- Check for Winner --}}
+    @if($numberOfPlayers === 1)
+        <div class="match-box">
+            <div class="player-box winner-box">
+                <strong>Winner:</strong> {{ $roundPlayers->first()->first()->user->name  }}
             </div>
-        @endfor
-    </div>
+        </div>
+    @else
+        {{-- Tournament Bracket Display --}}
+        <div class="bracket-container">
+            @foreach ($roundPlayers as $round => $roundPlayers)
+                <h2>Round {{ $round }}</h2>
+                @for ($i = 0; $i < count($roundPlayers); $i += 2)
+                    @if (isset($roundPlayers[$i]) && isset($roundPlayers[$i + 1]))
+                        <div class="match-box">
+                            <div class="player-box">{{ $roundPlayers[$i]->user->name }}
+                                <form action="/admin/eliminate-user/{{ $roundPlayers[$i]->user_id }}/advance/{{ $roundPlayers[$i + 1]->user_id }}/tournament/{{ $tournament_id }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="looser">Looser</button>
+                                </form>
+                            </div>
+                            <div class="vs-text">VS</div>
+                            <div class="player-box">{{ $roundPlayers[$i + 1]->user->name }}
+                                <form action="/admin/eliminate-user/{{ $roundPlayers[$i + 1]->user_id }}/advance/{{ $roundPlayers[$i]->user_id }}/tournament/{{ $tournament_id }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="looser">Looser</button>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
+                @endfor
+            @endforeach
+        </div>
+    @endif
+
 </body>
 </html>

@@ -70,18 +70,34 @@
 <body>
 
     <h1>Tournament Bracket</h1>
+    <h1>Round {{ $minRound }}</h1>
+      {{--Winner--}}
+      @if($numberOfPlayers === 1)
+      <div class="match-box">
+          <div class="player-box winner-box">
+              <strong>Winner:</strong> {{ $roundPlayers->first()->first()->user->name }}
+          </div>
+      </div>
+      @else
     <div class="bracket-container">
-        @for ($i = 0; $i < $numberOfPlayers; $i += 2)
-            <div class="match-box">
-                @isset($player_name[$i])
-                    <div class="player-box">{{ $player_name[$i] }}</div>
-                @endisset
-                <div class="vs-text">VS</div>
-                @isset($player_name[$i + 1])
-                    <div class="player-box">{{ $player_name[$i + 1] }}</div>
-                @endisset
-            </div>
-        @endfor
+        
+        @foreach ($roundPlayers as $round => $players)
+            @for ($i = 0; $i < count($players); $i += 2)
+                @if (isset($players[$i]) && isset($players[$i + 1]))
+                    <div class="match-box">
+                        <div class="player-box">{{ $players[$i]->user->name }}
+                            
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="player-box">{{ $players[$i + 1]->user->name }}
+                        </div>
+                    </div>
+                @endif
+            @endfor
+        @endforeach
+
+      
+            @endif
     </div>
 </body>
 </html>

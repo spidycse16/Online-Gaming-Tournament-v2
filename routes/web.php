@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function() {
 //admins
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/admin-home',[AuthController::class,'adminHome'])->name('adminHome');
+    Route::get('/admin-home',[AdminController::class,'adminHome'])->name('adminHome');
     //show the add tournament page
     Route::get('/admin/add-tournament',[AdminController::class,'add']);
     //store the items from the form
@@ -35,9 +35,11 @@ Route::middleware(['auth'])->group(function(){
     //takes me to the search page
     Route::get('/admin/manage-tournament-search',[AdminController::class,'search']);
     //takes me to the manage tournament page where=> [tournament name - manage-edit-delete]
-    Route::get('/admin/manage',[AuthController::class,'manage']);
+    Route::get('/admin/manage',[AdminController::class,'manage']);
     //takes to the versus control
     Route::get('/admin/manage-versus/{id}',[AdminController::class,'manageVersus']);
+    //delete user who lost the match
+    Route::POST('/admin/eliminate-user/{id}/advance/{increase_id}/tournament/{tour_id}',[AdminController::class,'deleteUser']);
 
 });
 

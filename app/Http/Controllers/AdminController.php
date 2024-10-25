@@ -58,10 +58,71 @@ class AdminController extends Controller
 
     public function manageVersus($tournament_id)
     {
-        //need to send id and name
-        $players_id=User_in_tournament::where('tournament_id',$tournament_id)-> pluck('user_id');
-        $player_name=User::whereIn('id',$players_id)->pluck('name');
-        $numberOfPlayers=count($players_id);
-        return view('admin.versus',compact('player_name' ,'numberOfPlayers','tournament_id','players_id'));
+        // //need to send id and name
+        // $players_id=User_in_tournament::where('tournament_id',$tournament_id)-> pluck('user_id');
+        // $player_name=User::whereIn('id',$players_id)->pluck('name');
+        // $rounds=User_in_tournament::where('tournament_id',$tournament_id)->pluck('rounds');
+        // $numberOfPlayers=count($players_id);
+        // //return $player_name;
+        // return view('admin.versus',compact('player_name' , 'numberOfPlayers','tournament_id','players_id','rounds'));
+
+        $players = User_in_tournament::where('tournament_id', $tournament_id)
+    ->where('eliminated', false)
+    ->with('user:id,name')
+    ->get();
+
+    $minRound = $players->min('rounds');
+
+    $players = User_in_tournament::where('tournament_id', $tournament_id)
+    ->where('eliminated', false)
+    ->orderBy('rounds', 'asc')
+    ->with('user:id,name')
+    ->get();
+
+
+    $roundPlayers = $players->groupBy('rounds');
+    $numberOfPlayers = $players->count();
+    return view('admin.versus', compact('roundPlayers', 'numberOfPlayers', 'tournament_id','minRound'));
+
+    }
+
+    public function manage(Request $request)
+    {
+       $title=$request->title;
+       $results=Tournament::where('tournament_name','Like','%'.$title.'%')->get(['id','tournament_name']);
+       //return $results;
+       return view('admin.manage',compact('results'));
+    }
+
+       public function adminHome()
+    {
+        return view('admin.home');
+    }
+
+
+    public function deleteUser($delete_id,$winner_id,$tournament_id)
+    {
+        // $record = User_in_tournament::where('user_id', $delete_id)->first();
+        // if ($record) {
+        //     $record->delete();
+        //     }
+        // User_in_tournament::where('user_id',$increase_id)->increment('rounds');
+        // Tournament::where('id',$tour_id)->decrement('players_joined');
+        // return redirect()->back();
+
+        User_in_tournament::where('tournament_id', $tournament_id)
+        ->where('user_id', $delete_id)
+        ->update(['eliminated' => true]);
+
+    // Advance the winner to the next round
+        $winner = User_in_tournament::where('tournament_id', $tournament_id)
+        ->where('user_id', $winner_id)
+        ->first();
+
+    Tournament::where('id',$tournament_id)->decrement('players_joined');
+    $winner->rounds+= 1;
+    $winner->save();
+
+    return redirect()->back();
     }
 }
