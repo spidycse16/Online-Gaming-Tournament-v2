@@ -125,4 +125,60 @@ class AdminController extends Controller
 
     return redirect()->back();
     }
+
+    public function editTournament($id)
+    {
+        $tournaments=Tournament::findOrFail($id);
+        //return $tournaments;
+        return view('admin.editPage', compact('tournaments'));
+    }
+
+    public function update(Request $request, $tournament_id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'string|required|max:200',
+            'match_fee' => 'string|required',
+            'datetime' => 'required|date', // Ensure this is a date
+            'game_name' => 'string|required',
+            'player_number' => 'integer|max:32|required',
+            'winning_amount' => 'required|numeric', // Make sure this is numeric
+            'description' => 'string|required|max:500',
+            'image' => 'nullable|image|max:2048', // Allow image upload as optional
+        ]);
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $validatedData['image_path'] = 'images/' . $imageName; // Store the path
+        } else {
+            // If no new image, set image_path to current image to avoid overwriting
+            $tournament = Tournament::findOrFail($tournament_id);
+            $validatedData['image_path'] = $tournament->image; // Keep existing image
+        }
+    
+        // Retrieve the tournament
+        $tournament = Tournament::findOrFail($tournament_id);
+    
+        // Update the tournament record
+        $updateData = $tournament->update([
+            'tournament_name' => $validatedData['name'],
+            'match_fee' => $validatedData['match_fee'],
+            'game_name' => $validatedData['game_name'],
+            'date_time' => $validatedData['datetime'],
+            'player_number' => $validatedData['player_number'],
+            'winning_amount' => $validatedData['winning_amount'],
+            'description' => $validatedData['description'],
+            'image' => $validatedData['image_path'], // Ensure this key exists
+        ]);
+    
+        // Check if the update was successful
+        if ($updateData) {
+            return redirect()->route('adminHome')->with('success','Update is successful');
+        } else {
+            return redirect()->back()->with('failed','Unable to update Tournament');
+        }
+    }
+    
 }

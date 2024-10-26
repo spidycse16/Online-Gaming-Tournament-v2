@@ -37,9 +37,13 @@ Route::middleware(['auth'])->group(function(){
     //takes me to the manage tournament page where=> [tournament name - manage-edit-delete]
     Route::get('/admin/manage',[AdminController::class,'manage']);
     //takes to the versus control
-    Route::get('/admin/manage-versus/{id}',[AdminController::class,'manageVersus']);
+    Route::get('/admin/manage-versus/{id}',[AdminController::class,'manageVersus'])->name('manage');
     //delete user who lost the match
     Route::POST('/admin/eliminate-user/{id}/advance/{increase_id}/tournament/{tour_id}',[AdminController::class,'deleteUser']);
+    //show the edit Tournament page
+    Route::get('/admin/edit-tournament/{id}',[AdminController::class,'editTournament']);
+    //control the edit tournament page
+    Route::put('/admin/update-tournament/{id}',[AdminController::class,'update']);
 
 });
 

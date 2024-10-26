@@ -84,7 +84,7 @@
                 <div class="entry-title">{{ $tournament->tournament_name }}</div>
                 <div class="button-group">
                     <a href="/admin/manage-versus/{{ $tournament->id }}" class="btn manage">Manage</a>
-                    <a href="/admin/edit/{{ $tournament->id }}" class="btn edit">Edit</a>
+                    <a href="/admin/edit-tournament/{{ $tournament->id }}" class="btn edit">Edit</a>
                     <a href="/admin/delete/{{ $tournament->id }}" class="btn delete">Delete</a>
                 </div>
             </div>
