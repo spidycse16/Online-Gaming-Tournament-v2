@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/admin/edit-tournament/{id}',[AdminController::class,'editTournament']);
     //control the edit tournament page
     Route::put('/admin/update-tournament/{id}',[AdminController::class,'update']);
+    Route::delete('/admin/delete/{id}',[AdminController::class,'delete']);
 
 });
 

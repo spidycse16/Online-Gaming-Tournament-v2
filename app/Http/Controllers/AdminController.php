@@ -184,5 +184,10 @@ class AdminController extends Controller
             return redirect()->back()->with('failed','Unable to update Tournament');
         }
     }
+
+    public function delete($id)
+    {
+        
+    }
     
 }
