@@ -188,6 +188,16 @@ class AdminController extends Controller
     public function delete($id)
     {
         
+        $tournament=Tournament::findOrFail($id);
+        $tournament->delete();
+        if($tournament)
+        {
+            return redirect()->back()->with('delete','Tournament Deleted Successfully');
+        }
+        else
+        {
+            return redirect()->back()->withErrors('SOmething went wrong!');
+        }
     }
     
 }

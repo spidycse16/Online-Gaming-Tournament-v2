@@ -56,7 +56,7 @@
         }
 
         .manage {
-            background-color:coral;
+            background-color: coral;
             color: white;
         }
 
@@ -73,9 +73,22 @@
         .btn:hover {
             opacity: 0.9;
         }
+
+        .delete-box {
+            border: 2px solid;
+            padding: 2px;
+            background-color: red;
+        }
     </style>
 </head>
 <body>
+    @if(session('delete'))
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        {{ session('delete') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    @endif
     <div class="container">
         <h1>Tournament Entries</h1>
 
@@ -85,10 +98,22 @@
                 <div class="button-group">
                     <a href="/admin/manage-versus/{{ $tournament->id }}" class="btn manage">Manage</a>
                     <a href="/admin/edit-tournament/{{ $tournament->id }}" class="btn edit">Edit</a>
-                    <a href="/admin/delete/{{ $tournament->id }}" class="btn delete">Delete</a>
+                    <form class="delete-box" id="deleteTournamentForm{{ $tournament->id }}" action="/admin/delete/{{$tournament->id}}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn delete" onclick="confirmDelete({{ $tournament->id }})">Delete</button>
+                    </form>
                 </div>
             </div>
         @endforeach
     </div>
+
+    <script>
+        function confirmDelete(tournamentId) {
+            if (confirm("Are you sure you want to delete this tournament? This action cannot be undone.")) {
+                document.getElementById('deleteTournamentForm' + tournamentId).submit();
+            }
+        }
+    </script>
 </body>
 </html>
