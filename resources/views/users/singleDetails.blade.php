@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Tournament Bracket</title>
     <style>
         body {
@@ -16,7 +17,6 @@
             color:darkslategrey
             font-size: 2.5em;
             margin-bottom: 20px;
-            font-family::content;
 
         }
         .bracket-container {
@@ -41,6 +41,20 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+
+        .circle {
+    width: 50px;     
+    height: 50px;    
+    border-radius: 50%;  
+    background-color:lightslategray;
+    color: white;        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;   
+    margin-bottom: 4px;
+    }
         .player-box {
             padding: 15px;
             background-color: #e9ecef;
@@ -70,7 +84,6 @@
 <body>
 
     <h1>Tournament Bracket</h1>
-    <h1>Round {{ $minRound }}</h1>
       {{--Winner--}}
       @if($numberOfPlayers === 1)
       <div class="match-box">
@@ -85,6 +98,9 @@
             @for ($i = 0; $i < count($players); $i += 2)
                 @if (isset($players[$i]) && isset($players[$i + 1]))
                     <div class="match-box">
+                        <div class="circle">
+                            {{$round}}
+                        </div>
                         <div class="player-box">{{ $players[$i]->user->name }}
                             
                         </div>

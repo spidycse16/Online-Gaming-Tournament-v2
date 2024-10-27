@@ -20,12 +20,15 @@ class TournamentController extends Controller
     public function allTournaments()
     {
         $tournaments=Tournament::paginate(4);
+
         
         return view('users.all_tournament',compact('tournaments'));
     }
     public function showDetails($id)
     {
         $tournament=Tournament::findOrFail($id);
+        $players=User_in_tournament::where('tournament_id',$id)->where('eliminated',0)->count();
+        Tournament::where('id', $id)->update(['players_joined' => $players]);
         return view('users.tournament_details',['normal_route'=>true],compact('tournament'));
         
         
@@ -58,7 +61,9 @@ class TournamentController extends Controller
                 {
                     User_in_tournament::create([
                         'user_id'=>$id,
-                        'tournament_id'=>$tournament_id
+                        'tournament_id'=>$tournament_id,
+                        'rounds'=>1,
+                        'eliminated'=>0
                     ]);
                     Tournament::where('id', $tournament_id)->update(['players_joined' => $numberOfUsers + 1]);
                 }

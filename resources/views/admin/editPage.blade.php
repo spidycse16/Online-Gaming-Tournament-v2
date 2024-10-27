@@ -9,6 +9,13 @@
     <title>Document</title>
 </head>
 <body>
+    @if(session('failed'))
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        {{ session('failed') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    @endif
     <form action="/admin/update-tournament/{{$tournaments->id}}" class="form-container" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')

@@ -118,8 +118,12 @@ class AdminController extends Controller
         $winner = User_in_tournament::where('tournament_id', $tournament_id)
         ->where('user_id', $winner_id)
         ->first();
+    $players_joined=Tournament::where('id',$tournament_id)->pluck('players_joined')->first();
 
-    Tournament::where('id',$tournament_id)->decrement('players_joined');
+    if($players_joined>0)
+    {
+        Tournament::where('id',$tournament_id)->decrement('players_joined');
+    }
     $winner->rounds+= 1;
     $winner->save();
 

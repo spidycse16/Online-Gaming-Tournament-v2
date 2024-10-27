@@ -65,12 +65,25 @@
         .looser{
             background-color: red;
         }
+
+        .circle {
+    width: 50px;     
+    height: 50px;    
+    border-radius: 50%;  
+    background-color:lightslategray;
+    color: white;        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;   
+    margin-bottom: 4px;
+}
     </style>
 </head>
 <body>
 
     <h1>Tournament Bracket</h1>
-
     {{-- Check for Winner --}}
     @if($numberOfPlayers === 1)
         <div class="match-box">
@@ -82,10 +95,12 @@
         {{-- Tournament Bracket Display --}}
         <div class="bracket-container">
             @foreach ($roundPlayers as $round => $roundPlayers)
-                <h2>Round {{ $round }}</h2>
                 @for ($i = 0; $i < count($roundPlayers); $i += 2)
                     @if (isset($roundPlayers[$i]) && isset($roundPlayers[$i + 1]))
                         <div class="match-box">
+                            <div class="circle">
+                                {{$round}}
+                            </div>
                             <div class="player-box">{{ $roundPlayers[$i]->user->name }}
                                 <form action="/admin/eliminate-user/{{ $roundPlayers[$i]->user_id }}/advance/{{ $roundPlayers[$i + 1]->user_id }}/tournament/{{ $tournament_id }}" method="POST">
                                     @csrf

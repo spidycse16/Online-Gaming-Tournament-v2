@@ -16,6 +16,8 @@ class User_in_tournament extends Model
     protected $fillable=[
         'user_id',
         'tournament_id',
+        'rounds',
+        'eliminated'
     ];
     use HasFactory;
 }
