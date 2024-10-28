@@ -36,6 +36,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            max-width: 400px;
         }
         .match-box:hover {
             transform: translateY(-5px);
@@ -49,6 +50,7 @@
             font-weight: bold;
             font-size: 1.2em;
             text-align: center;
+            max-width: 400px;
         }
         .vs-text {
             font-size: 1.5em;
@@ -85,12 +87,22 @@
 
     <h1>Tournament Bracket</h1>
     {{-- Check for Winner --}}
-    @if($numberOfPlayers === 1)
+    @if($numberOfPlayers==1 && $roundPlayers->first()->first()->rounds>1)
         <div class="match-box">
             <div class="player-box winner-box">
                 <strong>Winner:</strong> {{ $roundPlayers->first()->first()->user->name  }}
             </div>
         </div>
+
+    @elseif($numberOfPlayers==1)
+    <div class="match-box">
+        <div class="circle">
+            {{$roundPlayers->first()->first()->rounds}}
+        </div>
+        <div class="player-box">
+            {{$roundPlayers->first()->first()->user->name}}
+        </div>
+    </div>
     @else
         {{-- Tournament Bracket Display --}}
         <div class="bracket-container">
