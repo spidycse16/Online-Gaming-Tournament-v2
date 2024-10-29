@@ -142,12 +142,12 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name' => 'string|required|max:200',
             'match_fee' => 'string|required',
-            'datetime' => 'required|date', // Ensure this is a date
+            'datetime' => 'required|date', 
             'game_name' => 'string|required',
             'player_number' => 'integer|max:32|required',
-            'winning_amount' => 'required|numeric', // Make sure this is numeric
+            'winning_amount' => 'required|numeric', 
             'description' => 'string|required|max:500',
-            'image' => 'nullable|image|max:2048', // Allow image upload as optional
+            'image' => 'nullable|image|max:2048',
         ]);
     
         // Handle image upload
@@ -155,11 +155,11 @@ class AdminController extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
-            $validatedData['image_path'] = 'images/' . $imageName; // Store the path
+            $validatedData['image_path'] = 'images/' . $imageName;
         } else {
-            // If no new image, set image_path to current image to avoid overwriting
+          
             $tournament = Tournament::findOrFail($tournament_id);
-            $validatedData['image_path'] = $tournament->image; // Keep existing image
+            $validatedData['image_path'] = $tournament->image;
         }
     
         // Retrieve the tournament
@@ -174,10 +174,10 @@ class AdminController extends Controller
             'player_number' => $validatedData['player_number'],
             'winning_amount' => $validatedData['winning_amount'],
             'description' => $validatedData['description'],
-            'image' => $validatedData['image_path'], // Ensure this key exists
+            'image' => $validatedData['image_path'],
         ]);
     
-        // Check if the update was successful
+     
         if ($updateData) {
             return redirect()->route('adminHome')->with('success','Update is successful');
         } else {

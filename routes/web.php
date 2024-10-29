@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CocController;
 use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,13 @@ Route::middleware(['auth'])->group(function(){
     //control the edit tournament page
     Route::put('/admin/update-tournament/{id}',[AdminController::class,'update']);
     Route::delete('/admin/delete/{id}',[AdminController::class,'delete']);
+    //manage coc base modules
+    Route::get('/admin/manage-coc-bases',[CocController::class,'manage']);
+    //add clash of clan base
+    Route::get('/admin/add-coc-base',[CocController::class,'add'])->name('addBase');
+    //control base store
+    Route::POST('/admin/add-base-control',[CocController::class,'addControl']);
+
 
 });
 
