@@ -78,3 +78,39 @@ label {
 .button:hover {
     background-color:green;
 }
+
+/* Dropdown container styling */
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+/* Label styling */
+.dropdown label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Select box styling */
+.dropdown select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Hover and focus effects */
+.dropdown select:hover {
+    border-color: #007bff;
+}
+
+.dropdown select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

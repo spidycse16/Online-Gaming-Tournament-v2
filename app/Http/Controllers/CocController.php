@@ -17,11 +17,16 @@ class CocController extends Controller
     }
     public function addControl(Request $request)
     {
+        //return $request;
         $validatedData=$request->validate([
             'title'=>'required|string|',
             'image'=>'required|max:4096',
-            'description'=>'required|string'
+            'description'=>'required|string',
+            'th_level'=>'required|',
+            'tags'=>'required',
+            'link'=>'required'
         ]);
+        $validatedData['tags'] = implode(',', $validatedData['tags']);
         if($request->hasFile('image'))
         {
             $image=$request->file('image');
@@ -36,10 +41,17 @@ class CocController extends Controller
             'views'=>0,
             'likes'=>0,
             'downloads'=>0,
+            'th_level'=>$validatedData['th_level'],
+            'tags'=>$validatedData['tags'],
+            'link'=>$validatedData['link'],
         ]);
         if($flag)
         {
             return redirect()->route('addBase')->with('success','Base Added Successfully');
+        }
+        else
+        {
+            echo "Something is wrong";
         }
     }
 }

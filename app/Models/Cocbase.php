@@ -14,6 +14,9 @@ class Cocbase extends Model
         'likes',
         'downloads',
         'description',
+        'tags',
+        'th_level',
+        'link',
     ];
     use HasFactory;
 }

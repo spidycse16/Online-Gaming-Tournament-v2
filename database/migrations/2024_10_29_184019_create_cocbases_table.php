@@ -19,6 +19,9 @@ return new class extends Migration
             $table->integer('likes');
             $table->integer('downloads');
             $table->string('description');
+            $table->string('tags');
+            $table->string('th_level');
+            $table->string('link');
             $table->timestamps();
         });
     }
