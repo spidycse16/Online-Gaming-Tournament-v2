@@ -54,4 +54,10 @@ class CocController extends Controller
             echo "Something is wrong";
         }
     }
+
+    public function cocBase()
+    {
+        $bases=Cocbase::paginate(16);
+        return view('users.cocbase',compact('bases'));
+    }
 }

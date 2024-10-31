@@ -23,11 +23,13 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/my-tournaments/{id}',[TournamentController::class,'myTournaments'])->name('myTournaments');
     //shows tournament brackets and the player vs player option
     Route::get('/details/{id}',[TournamentController::class,'details']);
-    //takes me to admin page
+    //visit coc bases
+    Route::get('/coc-bases',[CocController::class,'cocBase']);
 });
 //admins
 
 Route::middleware(['auth'])->group(function(){
+    //takes me to admin page
     Route::get('/admin-home',[AdminController::class,'adminHome'])->name('adminHome');
     //show the add tournament page
     Route::get('/admin/add-tournament',[AdminController::class,'add']);

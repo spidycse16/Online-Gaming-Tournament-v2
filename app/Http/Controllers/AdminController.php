@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cocbase;
 use App\Models\Tournament;
 use App\Models\User;
 use App\Models\User_in_tournament;
