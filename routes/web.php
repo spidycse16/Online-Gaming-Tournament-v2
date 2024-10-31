@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/details/{id}',[TournamentController::class,'details']);
     //visit coc bases
     Route::get('/coc-bases',[CocController::class,'cocBase']);
+    //likes count
+    Route::put('/likes-control/{id}',[CocController::class,'likesControl']);
 });
 //admins
 

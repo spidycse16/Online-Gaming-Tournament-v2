@@ -16,7 +16,7 @@
 
            <div class="action-buttons">
            
-               <form action="/likes-control" method="POST">
+               <form action="/likes-control/{{$base->id}}" method="POST">
                    @method('PUT')
                    @csrf
                    <button class="likes">

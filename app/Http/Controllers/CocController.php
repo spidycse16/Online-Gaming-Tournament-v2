@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cocbase;
+use App\Models\Like;
+use Auth;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
@@ -59,5 +61,25 @@ class CocController extends Controller
     {
         $bases=Cocbase::paginate(16);
         return view('users.cocbase',compact('bases'));
+    }
+    public function likesControl($baseId)
+    {
+        $user=Auth::id();
+        $entry=Like::where('user_id',$user)->where('base_id',$baseId)->exists();
+        if($entry)
+        {
+            return redirect()->back();
+        }
+        else
+        {  
+            Like::create([
+                'user_id'=>$user,
+                'base_id'=>$baseId,
+
+            ]);
+            $base=Cocbase::findOrFail($baseId);
+            $base->increment('likes');
+            return redirect()->back();
+        }
     }
 }
