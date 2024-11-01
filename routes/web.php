@@ -27,7 +27,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/coc-bases',[CocController::class,'cocBase']);
     //likes count
     Route::put('/likes-control/{id}',[CocController::class,'likesControl']);
+    //base deatils and download views increment
+    Route::put('/base-details/{id}',[CocController::class,'baseDetails']);
 });
+
 //admins
 
 Route::middleware(['auth'])->group(function(){

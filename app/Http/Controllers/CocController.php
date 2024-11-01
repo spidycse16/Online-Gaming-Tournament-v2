@@ -60,7 +60,7 @@ class CocController extends Controller
     public function cocBase()
     {
         $bases=Cocbase::paginate(16);
-        return view('users.cocbase',compact('bases'));
+        return view('users.clashofclans.cocbase',compact('bases'));
     }
     public function likesControl($baseId)
     {
@@ -81,5 +81,12 @@ class CocController extends Controller
             $base->increment('likes');
             return redirect()->back();
         }
+    }
+    public function baseDetails($id)
+    {
+        $base=Cocbase::findOrFail($id);
+        $base->increment('views');
+        
+        return view('users.clashofclans.baseDetails',compact('base'));
     }
 }

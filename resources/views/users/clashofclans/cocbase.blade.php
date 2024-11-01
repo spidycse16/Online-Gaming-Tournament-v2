@@ -53,7 +53,7 @@
            </div>
 
            <div class="details-button">
-               <form action="/base-details" method="POST">
+               <form action="/base-details/{{$base->id}}" method="POST">
                    @method('PUT')
                    @csrf
                    <button class="details"><i class="fas fa-info-circle"></i> Download</button>
