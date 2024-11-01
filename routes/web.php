@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function() {
     Route::put('/likes-control/{id}',[CocController::class,'likesControl']);
     //base deatils and download views increment
     Route::put('/base-details/{id}',[CocController::class,'baseDetails']);
+    //increment downloads
+    Route::POST('/download-control/{id}',[CocController::class,'downloadControl']);
 });
 
 //admins

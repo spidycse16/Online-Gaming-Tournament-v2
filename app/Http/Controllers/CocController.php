@@ -89,4 +89,16 @@ class CocController extends Controller
         
         return view('users.clashofclans.baseDetails',compact('base'));
     }
+
+    public function downloadControl($baseId)
+    {
+        $base=Cocbase::findOrFail($baseId);
+        $base->increment('downloads');
+        $link = $base->link;
+        if (!preg_match("~^(http|https)~", $link)) {
+        $link = "https://" . $link;
+    }
+
+    return redirect()->away($link);
+    }
 }

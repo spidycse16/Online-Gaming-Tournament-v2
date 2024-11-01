@@ -45,9 +45,12 @@
         </div>
     
         <div class="details-button">
-            <a href="{{ strpos($base->link, 'http') === 0 ? $base->link : 'https://' . $base->link }}" class="details-button-link" target="_blank">Download</a>
+            <form action="/download-control/{{$base->id}}" method="POST">
+                @csrf
+                <button class="details"> Download Base</button>
+            </form>
         </div>
-        
+    </div>
     
 </body>
 </html>
