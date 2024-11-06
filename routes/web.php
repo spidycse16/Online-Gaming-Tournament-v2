@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CocController;
 use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\AdminController;
@@ -31,6 +32,10 @@ Route::middleware(['auth'])->group(function() {
     Route::put('/base-details/{id}',[CocController::class,'baseDetails']);
     //increment downloads
     Route::POST('/download-control/{id}',[CocController::class,'downloadControl']);
+    //post page
+    Route::get('/blog',[BlogController::class,'home']);
+    //test api
+    Route::get('/blog-test',[BlogController::class,'test']);
 });
 
 //admins
