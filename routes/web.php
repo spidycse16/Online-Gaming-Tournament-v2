@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/add-post',[BlogController::class,'addPost'])->name('posts');
     //add post to databse
     Route::Post('/add-post-control',[BlogController::class,'postControl']);
+    //view post
+    Route::get('/posts/{id}',[BlogController::class,'postDetails']);
 });
 
 //admins

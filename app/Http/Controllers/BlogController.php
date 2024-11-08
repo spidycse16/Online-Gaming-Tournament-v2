@@ -54,6 +54,12 @@ class BlogController extends Controller
     }
 }
 
+public function postDetails($post_id)
+{
+    $post=Post::findOrFail($post_id);
+    return view('users.blog.singlePost');
+}
+
     public function test()
     {
     }
