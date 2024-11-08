@@ -36,6 +36,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/blog',[BlogController::class,'home']);
     //test api
     Route::get('/blog-test',[BlogController::class,'test']);
+    //add post page
+    Route::get('/add-post',[BlogController::class,'addPost'])->name('posts');
+    //add post to databse
+    Route::Post('/add-post-control',[BlogController::class,'postControl']);
 });
 
 //admins
