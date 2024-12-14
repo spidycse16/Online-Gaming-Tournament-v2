@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function() {
     //increment downloads
     Route::POST('/download-control/{id}',[CocController::class,'downloadControl']);
     //post page
-    Route::get('/blog',[BlogController::class,'home']);
+    Route::get('/blog',[BlogController::class,'home'])->name('blog');
     //test api
     Route::get('/blog-test',[BlogController::class,'test']);
     //add post page
@@ -42,6 +42,14 @@ Route::middleware(['auth'])->group(function() {
     Route::Post('/add-post-control',[BlogController::class,'postControl']);
     //view post
     Route::get('/posts/{id}',[BlogController::class,'postDetails']);
+    //like the post
+    Route::post('/like-post', [BlogController::class, 'likePost'])->name('post.like');
+    //add-commnet
+    Route::post('/add-comment', [BlogController::class, 'addComment'])->name('comment.store');
+    // Route to get comments for a specific post
+    Route::get('/get-comments/{postId}', [BLogController::class, 'getComments']);
+
+
 });
 
 //admins

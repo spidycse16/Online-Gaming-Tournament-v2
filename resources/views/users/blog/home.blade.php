@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Recent Posts</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('css/post.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/post.css') }}">
 </head>
 <body>
 
@@ -15,9 +15,11 @@
 </header>
 
 <div class="container">
-    <!-- Displaying Recent Posts -->
     @foreach ($recentPosts as $post)
         <div class="post-card">
+            <!-- Display Post Image -->
+            <img src="{{ $post->image }}" alt="Post Image" class="post-image" />
+
             <h2>{{ $post->title }}</h2>
             <div class="post-info">
                 Posted by {{ $user_name }} on {{ $post->created_at->format('F d, Y') }}
@@ -27,13 +29,15 @@
             </p>
 
             <div class="post-actions">
+                <!-- Like Button with Image -->
                 <a href="/post-like-control" class="like-button">
-                    <img src="{{asset('images/like.png')}}" alt="like" class="image">
+                    <img src="{{ asset('images/like.png') }}" alt="like" class="image">
                     <p class="like-count">{{ $post->likes }}</p> Like
                 </a>
 
+                <!-- Comment Button with Image -->
                 <a href="/posts/{{ $post->id }}" class="comment-button">
-                    <img src="{{asset('images/comment.jpg')}}" alt="comment" class="image">
+                    <img src="{{ asset('images/comment.jpg') }}" alt="comment" class="image">
                     Comment
                 </a>
             </div>

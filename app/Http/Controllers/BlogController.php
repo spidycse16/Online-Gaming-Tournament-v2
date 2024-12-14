@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Auth;
@@ -48,17 +49,85 @@ class BlogController extends Controller
     ]);
 
     if ($result) {
-        return redirect()->route('posts')->with('success', 'Post Added Successfully');
+        return redirect()->route('blog')->with('success', 'Post Added Successfully');
     } else {
         return redirect()->back()->with('error', 'Failed to add the post');
     }
 }
 
-public function postDetails($post_id)
+public function postDetails($postId)
 {
-    $post=Post::findOrFail($post_id);
-    return view('users.blog.singlePost');
+    $post = Post::findOrFail($postId);
+    $user_name = auth()->user()->name; // Or retrieve the username in the way that suits your logic
+    $commentCount = $post->comments()->count(); // Get the number of comments for this post
+
+    return view('users.blog.singlePost', compact('post', 'user_name', 'commentCount'));
 }
+
+
+public function likePost(Request $request)
+{
+    $validated = $request->validate([
+        'post_id' => 'required|exists:posts,id',
+    ]);
+
+    $post = Post::findOrFail($validated['post_id']);
+    $user = auth()->user();
+
+    $alreadyLiked = $post->likes()->where('user_id', $user->id)->exists();
+
+    if ($alreadyLiked) {
+        $post->likes()->detach($user->id);
+        $post->decrement('likes');
+        return response()->json(['liked' => false, 'likes' => $post->likes]);
+    }
+
+    $post->likes()->attach($user->id);
+    $post->increment('likes');
+    return response()->json(['liked' => true, 'likes' => $post->likes]);
+}
+
+public function addComment(Request $request)
+{
+    // Validate the request
+    $request->validate([
+        'post_id' => 'required|exists:posts,id',
+        'comment' => 'required|string|max:500',
+    ]);
+
+    // Create the comment
+    $comment = new Comment();
+    $comment->post_id = $request->post_id;
+    $comment->user_id = auth()->id();
+    $comment->comment = $request->comment;
+    $comment->save();
+
+    return response()->json([
+        'user_name' => auth()->user()->name,
+        'comment' => $comment->comment,
+        'created_at' => $comment->created_at->diffForHumans(),
+    ]);
+}
+
+public function getComments($postId)
+{
+   
+    $comments = Comment::where('post_id', $postId)
+        ->with('user') 
+        ->get();
+
+ 
+    return response()->json([
+        'comments' => $comments->map(function ($comment) {
+            return [
+                'user_name' => $comment->user->name,  
+                'comment' => $comment->comment,     
+                'created_at' => $comment->created_at->toFormattedDateString(),
+            ];
+        }),
+    ]);
+}
+
 
     public function test()
     {
