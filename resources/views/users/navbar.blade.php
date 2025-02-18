@@ -19,7 +19,7 @@
             <li>
                 <form action="/logout" method="POST" style="display: inline;">
                     @csrf
-                    <button type="submit" name="logout" class="btn btn-danger">Logout</button>
+                    <button type="submit" name="logout" class="btn btn-danger"">Logout</button>
                 </form>
             </li>
         </ul>

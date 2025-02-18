@@ -23,7 +23,7 @@
                 (<span id="like-count">{{ $post->likes }}</span>)
             </button>
             <button id="comment-button">
-                Comments ({{ $commentCount }}) <!-- Show comment count -->
+                Comments ({{ $commentCount }}) 
             </button>
         </div>
 
@@ -50,7 +50,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token for security
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 },
                 body: JSON.stringify({ post_id: postId }),
             })

@@ -12,6 +12,11 @@ use App\Models\User;
 
 class TournamentController extends Controller
 {
+
+    public function success()
+    {
+        return "payment is successfull";
+    }
     public function homePage()
     {
         $id=Auth::id();

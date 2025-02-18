@@ -6,6 +6,7 @@
     <title>Blog - Recent Posts</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/post.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -16,7 +17,7 @@
 
 <div class="container">
     @foreach ($recentPosts as $post)
-        <div class="post-card">
+        <div class="post-card" data-post-id="{{ $post->id }}">
             <!-- Display Post Image -->
             <img src="{{ $post->image }}" alt="Post Image" class="post-image" />
 
@@ -29,13 +30,13 @@
             </p>
 
             <div class="post-actions">
-                <!-- Like Button with Image -->
-                <a href="/post-like-control" class="like-button">
+                <!-- Like Button with AJAX -->
+                <button class="like-button">
                     <img src="{{ asset('images/like.png') }}" alt="like" class="image">
-                    <p class="like-count">{{ $post->likes }}</p> Like
-                </a>
+                    <span class="like-count">{{ $post->likes }}</span> Like
+                </button>
 
-                <!-- Comment Button with Image -->
+                <!-- Comment Button -->
                 <a href="/posts/{{ $post->id }}" class="comment-button">
                     <img src="{{ asset('images/comment.jpg') }}" alt="comment" class="image">
                     Comment
@@ -44,6 +45,38 @@
         </div>
     @endforeach
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.like-button').click(function () {
+            const button = $(this);
+            const postCard = button.closest('.post-card');
+            const postId = postCard.data('post-id');
+
+            $.ajax({
+                url: '/like-post',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token for Laravel
+                },
+                data: { post_id: postId },
+                success: function (response) {
+                    // Update like count and button text/icon
+                    if (response.isLiked) {
+                        button.find('.like-count').text(response.likes);
+                        button.addClass('liked'); // Optional: Add a class for visual feedback
+                    } else {
+                        button.find('.like-count').text(response.likes);
+                        button.removeClass('liked'); // Optional: Remove class if unliked
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -8,6 +8,7 @@
 body {
     background-color: #f4f4f9;
     display: flex;
+    
     justify-content: center;
     padding: 20px;
 }
@@ -130,4 +131,14 @@ button:hover {
 .details-button i {
     font-size: 1.2em;
 }
+.navbar-container {
+    width: 100%;
+    display: block; /* Ensure the navbar occupies its own line */
+    margin-bottom: 20px; /* Add space below the navbar */
+}
+
+.content-section {
+    margin-top: 20px; /* Adjust spacing above the content section */
+}
+
 
