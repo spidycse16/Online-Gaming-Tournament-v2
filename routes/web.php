@@ -87,8 +87,8 @@ Route::middleware(['auth'])->group(function(){
 
 //login and registration
 Route::get('/first-page',[AuthController::class,'index']);
-Route::get('/login',[AuthController::class,'login']);
-Route::get('/register',[AuthController::class,'register']);
+Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::get('/register',[AuthController::class,'register'])->name('register');
 Route::POST('/register-control',[AuthController::class,'registerControl']);
 Route::POST('/login-control',[AuthController::class,'loginControl']);
 Route::POST('/logout',[AuthController::class,'logout']);

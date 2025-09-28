@@ -1,66 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Online Gaming Tournament (v2)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based web application for hosting, managing, and joining online gaming tournaments. Users can browse tournaments, join with payments (SSLCOMMERZ), view tournament brackets, and interact with a blog and Clash of Clans base library. Admins can create and manage tournaments, bases, and match progress.
 
-## About Laravel
+## Table of contents
+- Project overview
+- Key features
+- Tech stack
+- Notable modules & files
+- Database
+- Installation & local setup
+- Running the app (development and production)
+- Testing
+- Environment & configuration
+- Deployment tips
+- Contributing
+- License
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project is a Laravel (v11.x) application written for PHP 8.2+. It provides a platform to host gaming tournaments (with match fees, player management, brackets), a blog for posts/comments/likes, and a library of Clash of Clans (CoC) bases that users can view and download. Payments for joining tournaments are handled using SSLCOMMERZ (a Bangladesh payment gateway) via an included controller and config.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The repository includes typical Laravel structure: models, controllers, routes, migrations, seeders, and front-end assets built with Vite.
 
-## Learning Laravel
+## Key features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- User registration, login and authentication (via Laravel's authentication foundations).
+- Browse all tournaments and view tournament details and brackets.
+- Join tournaments using SSLCOMMERZ payments (payment flow and IPN handling present).
+- Admin panel to create, edit, delete and manage tournaments and match progress (versus/elimination flows).
+- Clash of Clans base library (viewing, likes, download tracking).
+- Blog module with posts, likes and comments.
+- File uploads and image handling for tournaments, posts and bases.
+- Database factories and seeders for quick local data seeding.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Tech stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Backend: PHP 8.2+, Laravel Framework 11.x
+- Frontend toolchain: Vite, axios
+- Styling: Font Awesome assets available in `package.json` (used for icons)
+- Payment gateway: SSLCOMMERZ integration (controller in `app/Http/Controllers/SslCommerzPaymentController.php` and config in `config/sslcommerz.php`)
+- Tests: PHPUnit (configured in `composer.json`)
 
-## Laravel Sponsors
+## Notable modules & files
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Routes: `routes/web.php` — the main web routes for users, admins and payment callbacks.
+- Controllers:
+  - `app/Http/Controllers/TournamentController.php` — tournament pages, joining flow, payment confirmations.
+  - `app/Http/Controllers/CocController.php` — CoC base listing, likes, downloads, and admin base management.
+  - `app/Http/Controllers/AdminController.php` — admin dashboard and tournament management (add/update/delete, versus management).
+  - `app/Http/Controllers/BlogController.php` — posts, likes, comments and related APIs.
+  - `app/Http/Controllers/AuthController.php` — login / registration / logout flows.
+  - `app/Http/Controllers/SslCommerzPaymentController.php` — payment checkout, success/fail/cancel handlers, IPN.
+- Models:
+  - `app/Models/Tournament.php` — tournament model and fillable attributes.
+  - `app/Models/User.php` — user model with relationships for likes and comments.
+  - `app/Models/Post.php`, `app/Models/Comment.php`, `app/Models/Like.php`, `app/Models/User_in_tournament.php`, `app/Models/Cocbase.php` — related domain models (see `app/Models`).
+- Database migrations: `database/migrations/` — includes tables for users, tournaments, cocbases, posts, comments, likes and orders (payment records).
+- Factories/Seeders: `database/factories/`, `database/seeders/` — helpful for local dev and testing.
+- Frontend assets: `resources/js/`, `resources/css/`, and `public/js`, `public/css` for compiled assets.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Installation & local setup
 
-## Contributing
+Prerequisites:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP 8.2 or newer
+- Composer
+- Node.js (recommended LTS) and npm
+- A database (SQLite, MySQL, PostgreSQL)
 
-## Code of Conduct
+Steps:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Clone the repository and cd into it:
 
-## Security Vulnerabilities
+```bash
+git clone git@github.com:spidycse16/Online-Gaming-Tournament-v2.git
+cd Online-Gaming-Tournament-v2
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. Install PHP dependencies with Composer:
 
-## License
+```bash
+composer install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Install frontend dependencies and build assets (development):
+
+```bash
+npm install
+npm run dev
+```
+
+4. Copy the example environment file and generate the app key:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Configure your `.env` values: database credentials, SSLCOMMERZ keys, mail settings, etc. See the Environment & configuration section below.
+
+6. Create the database (if using SQLite create `database/database.sqlite`) and run migrations + seeders:
+
+```bash
+# For SQLite (example)
+touch database/database.sqlite
+
+php artisan migrate --seed
+```
+
+7. (Optional) Link storage for public access to user-uploaded files:
+
+```bash
+php artisan storage:link
+```
+
+8. Start the local development server:
+
+```bash
+php artisan serve
+# Visit http://127.0.0.1:8000
+```
+
+Notes:
+- If you changed environment variables after running migrations or installer scripts, re-run `php artisan config:cache` and `php artisan route:cache` to refresh caches (for production builds).
+
+## Running in production
+
+- Compile optimized assets:
+
+```bash
+npm run build
+```
+
+- Set correct permissions on `storage/` and `bootstrap/cache`.
+- Use a web server like Nginx or Apache pointed at `public/`.
+- Configure a process supervisor (supervisor / systemd) for queue workers if you add asynchronous jobs.
+
+## Environment & configuration
+
+- `.env` keys you should set (examples):
+
+```
+APP_NAME=OnlineGamingTournament
+APP_ENV=local
+APP_KEY=base64:...
+APP_URL=http://localhost
+
+DB_CONNECTION=sqlite # or mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+
+# SSLCOMMERZ specific (check config/sslcommerz.php)
+SSLCOMMERZ_STORE_ID=your_store_id
+SSLCOMMERZ_STORE_PASSWORD=your_store_password
+SSLCOMMERZ_SANDBOX=true
+```
+
+- Payment flow: The routes in `routes/web.php` include callbacks for SSLCOMMERZ: `/success`, `/fail`, `/cancel`, and `/ipn`. Make sure your environment and server are reachable by the gateway (for local testing, consider using a tunnel like ngrok).
+
+
+## Troubleshooting & tips
+
+- If you see permission errors, ensure `storage/` and `bootstrap/cache` are writable by your web server user.
+- For local payment testing, use ngrok (or similar) to expose your local server and configure the SSLCOMMERZ return/notify URLs.
+- If frontend assets are missing, run `npm install` and `npm run dev` or `npm run build`.
+- After changing `.env`, run `php artisan config:clear` and `php artisan cache:clear`.
