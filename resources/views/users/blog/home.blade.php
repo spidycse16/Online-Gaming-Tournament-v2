@@ -1,73 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Recent Posts</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/post.css') }}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
+@extends('layouts.layout')
 
-<header>
-    <h1>Recent Blog Posts</h1>
-    <a href="/add-post" class="add-post-button">+ Add Post</a>
-</header>
+@section('title', 'Blog - Recent Posts')
 
+@section('content')
 <div class="container">
-    @foreach ($recentPosts as $post)
-        <div class="post-card" data-post-id="{{ $post->id }}">
-            <!-- Display Post Image -->
-            <img src="{{ $post->image }}" alt="Post Image" class="post-image" />
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h1>Recent Blog Posts</h1>
+        <a href="/add-post" class="btn btn-primary">+ Add Post</a>
+    </div>
 
-            <h2>{{ $post->title }}</h2>
-            <div class="post-info">
-                Posted by {{ $user_name }} on {{ $post->created_at->format('F d, Y') }}
+    <div class="row">
+        @foreach ($recentPosts as $post)
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ $post->image }}" class="card-img-top" alt="Post Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $post->title }}</h5>
+                        <p class="card-text"><small class="text-muted">Posted by {{ $user_name }} on {{ $post->created_at->format('F d, Y') }}</small></p>
+                        <p class="card-text">{{ Str::limit($post->description, 150, '...') }}</p>
+                        <a href="/posts/{{ $post->id }}" class="btn btn-link p-0">See More</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-light like-button" data-post-id="{{ $post->id }}">
+                                <i class="far fa-thumbs-up"></i> <span class="like-count">{{ $post->likes }}</span> Like
+                            </button>
+                            <a href="/posts/{{ $post->id }}" class="btn btn-light">
+                                <i class="far fa-comment"></i> Comment
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="post-description">{{ Str::limit($post->description, 150, '...') }}
-                <a href="/posts/{{ $post->id }}" class="see-more">See More</a>
-            </p>
-
-            <div class="post-actions">
-                <!-- Like Button with AJAX -->
-                <button class="like-button">
-                    <img src="{{ asset('images/like.png') }}" alt="like" class="image">
-                    <span class="like-count">{{ $post->likes }}</span> Like
-                </button>
-
-                <!-- Comment Button -->
-                <a href="/posts/{{ $post->id }}" class="comment-button">
-                    <img src="{{ asset('images/comment.jpg') }}" alt="comment" class="image">
-                    Comment
-                </a>
-            </div>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
 </div>
 
 <script>
     $(document).ready(function () {
         $('.like-button').click(function () {
             const button = $(this);
-            const postCard = button.closest('.post-card');
-            const postId = postCard.data('post-id');
+            const postId = button.data('post-id');
 
             $.ajax({
                 url: '/like-post',
                 type: 'POST',
                 headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token for Laravel
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 data: { post_id: postId },
                 success: function (response) {
-                    // Update like count and button text/icon
+                    button.find('.like-count').text(response.likes);
                     if (response.isLiked) {
-                        button.find('.like-count').text(response.likes);
-                        button.addClass('liked'); // Optional: Add a class for visual feedback
+                        button.addClass('liked');
                     } else {
-                        button.find('.like-count').text(response.likes);
-                        button.removeClass('liked'); // Optional: Remove class if unliked
+                        button.removeClass('liked');
                     }
                 },
                 error: function (xhr, status, error) {
@@ -77,6 +64,4 @@
         });
     });
 </script>
-
-</body>
-</html>
+@endsection

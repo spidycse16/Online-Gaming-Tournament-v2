@@ -1,28 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>Document</title>
-</head>
-<body>
-    <nav>
-        <ul class="nav">
-            <li><a href="/tournaments">Tournaments</a></li>
-            <li><a href="/coc-bases">COC base links</a></li>
-            <li><a href="/royale-deck">Clash Royale Decks</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/about-us">About us</a></li>
-            <li><a href="/my-tournaments/{{Auth::id()}}">My Tournaments</a></li>
-            <li>
-                <form action="/logout" method="POST" style="display: inline;">
-                    @csrf
-                    <button type="submit" name="logout" class="btn btn-danger"">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-</body>
-</html>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #222831;">
+    <div class="container">
+        <a class="navbar-brand" href="/">Gamers Lair</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/tournaments">Tournaments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/coc-bases">COC Base Links</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/about-us">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="/my-tournaments/{{Auth::id()}}">My Tournaments</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li>
+                                <form action="/logout" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<style>
+    .navbar-dark .nav-item .nav-link {
+        color: #eeeeee;
+        transition: color 0.3s;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .navbar-dark .nav-item .nav-link:hover {
+        color: #00adb5;
+    }
+    .navbar-brand {
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+</style>

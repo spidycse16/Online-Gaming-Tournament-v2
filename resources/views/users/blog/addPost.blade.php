@@ -1,28 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{asset('css/addPost.css')}}">
-    <title>Add Post</title>
-</head>
-<body>
-    <form action="/add-post-control" method="POSt" enctype="multipart/form-data">
-        @csrf
-        <label for="">Title</label>
-        <input type="text" name="title" class="field">
-        
-        <label for="">description</label>
-        <input type="textarea" name="description" class="field">
-        
-        <label for="">Image</label>
-        <input type="file" name="image" class="field">
-        
-        <button type="submit" class="add-button">Add Post</button>
-    </form>
-    
-    
-</body>
-</html>
+@extends('layouts.layout')
+
+@section('title', 'Add New Post')
+
+@section('content')
+<div class="container my-4">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Add New Post</h1>
+                </div>
+                <div class="card-body">
+                    <form action="/add-post-control" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" name="title" id="title" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" name="image" id="image" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
